@@ -5,6 +5,28 @@ import { addTodoAction, removeTodoAction, toggleTodoAction } from "./todo-list.a
 import { TodoList } from "./todo-list.component"
 import { render, fireEvent, waitForElement } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import { getCompleted } from './todo-list.util'
+
+describe('Util', () => {
+  it('should count completed', () => {
+    const initialTodoList = [
+      {id: 1, completed: false, value: 'do groceries'},
+      {id: 2, completed: true, value: 'send test'},
+      {id: 3, completed: true, value: 'deal with reducer'},
+      {id: 4, completed: true, value: 'remember to have fun'},
+    ]
+
+    const completed = getCompleted(initialTodoList)
+    
+    expect(completed).toEqual(3)
+  })
+
+  it('should return 0', () => {
+    const completed = getCompleted()
+    
+    expect(completed).toEqual(0)
+  })
+})
 
 describe('<TodoList />', () => {
   it('should render the component', async () => {
